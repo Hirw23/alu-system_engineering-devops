@@ -1,16 +1,19 @@
 #!/usr/bin/env bash
 # bash script that installs HAProxy & makes configurations to meet the following requirements:
 
-apt-get -y install software-properties-common
-add-apt-repository ppa:vbernat/haproxy-1.8
-apt-get update
-apt-get -y install haproxy
-echo "ENABLED=1" >> /etc/default/haproxy
-printf %s "listen 6207-web 
+sudo apt-get -y update
+sudo apt-get -y install haproxy
+sudo chown $USER:USER /etc/haproxy/haproxy.cfg
+
+echo "
+frontend godmade 
     bind *:80
     mode http
+    default_backend app
+
+backend app
     balance roundrobin
     server 6207-web-01 54.91.55.243 check
-    server 6207-web-02 3.87.173.25	 check
-" >> /etc/haproxy/haproxy.cfg
+    server 6207-web-02 3.87.173.25  check" >> /etc/haproxy/haproxy.cfg
+
 sudo service haproxy restart
