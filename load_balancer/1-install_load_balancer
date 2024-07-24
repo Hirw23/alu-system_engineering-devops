@@ -35,13 +35,13 @@ defaults
   timeout http-request 10s
 
 frontend godmade-tech-frontend
-    bind *:80
-    default_backend godmade-tech-backend
+       bind *:80
+       default_backend godmade-tech-backend
 
 backend godmade-tech-backend
-    balance roundrobin
-     server 6207-web-01 54.91.55.243:80 check
-      server 6207-web-02 3.93.171.29:80 check
+       balance roundrobin
+       server 6207-web-01 54.91.55.243:80 check
+       server 6207-web-02 3.87.173.25:80 check
 "
 
 # shellcheck disable=SC2154
